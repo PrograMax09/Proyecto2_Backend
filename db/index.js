@@ -17,7 +17,17 @@ async function checkDB() {
     }
 }
 
+async function syncModels() {
+    try {
+        await sequelize.sync({force: true})
+        console.log("Models syncronyzed!")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports = {
-sequelize,
-checkDB
+    sequelize,
+    checkDB,
+    syncModels
 }
