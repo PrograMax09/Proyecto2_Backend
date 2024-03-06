@@ -8,8 +8,18 @@ function addRelations() {
     try {
         
         //one to one - User & Description
-        User.hasOne(Description)
-        Description.belongsTo(User)
+        User.hasOne(Description , {
+            foreignKey: {
+                name: "user_id",
+                allowNull: false,
+            },
+        })
+        Description.belongsTo(User, {
+            foreignKey: {
+                name: "user_id",
+                allowNull: false,
+            },
+        })
 
         //one to many - User & Comment
         User.hasMany(Comment, {

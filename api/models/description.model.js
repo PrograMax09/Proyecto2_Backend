@@ -10,11 +10,6 @@ const Description = sequelize.define("Description", {
     about_me: {
         type: DataTypes.TEXT,
     },
-
-    user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
 },
 {timestamps: false}
 )

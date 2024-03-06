@@ -19,7 +19,7 @@ async function checkDB() {
 
 async function syncModels() {
     try {
-        await sequelize.sync({force: true})
+        await sequelize.sync()
         console.log("Models syncronyzed!")
     } catch (error) {
         console.log(error)
