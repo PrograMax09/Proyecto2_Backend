@@ -104,7 +104,7 @@ const getUserComments = async function(req, res) {
         }
         const comments = await Comment.findAll({where: {forum_id: forum.id, user_id: user.id}})
         if (comments.length === 0) {
-            return res.status(500).send("This forum has no comments yet")
+            return res.status(500).send("This forum has no comments from that user yet")
         }
         res.status(200).send(comments)
     } catch (error) {

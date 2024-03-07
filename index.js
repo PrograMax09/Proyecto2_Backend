@@ -1,3 +1,4 @@
+require("dotenv").config()
 const { checkDB, syncModels } = require("./db/index.js")
 const express = require('express')
 const morgan = require("morgan")
@@ -16,7 +17,7 @@ async function dbConnect() {
 }
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 app.use(express.json())
 app.use(morgan("dev"));
