@@ -3,11 +3,13 @@ const {checkAuth} = require("../middlewares/index.js")
 const {
     getAllUsers,
     getMyProfile,
+    getOneProfile,
     changeProfile,
 } = require("../controllers/user.controller.js")
 
-router.get("/", getAllUsers)
+router.get("/", checkAuth, getAllUsers)
 router.get("/profile", checkAuth, getMyProfile)
-router.patch("/profile", checkAuth, changeProfile)
+router.get("/profile/:userId", checkAuth, getOneProfile)
+router.patch("/profile/:userId", checkAuth, changeProfile)
 
 module.exports = router

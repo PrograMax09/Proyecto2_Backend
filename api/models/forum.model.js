@@ -7,6 +7,9 @@ const Forum = sequelize.define("Forum", {
         allowNull: false,
         unique: true,
     },
+    description: {
+        type: DataTypes.STRING
+    }
 },
 {timestamps: true}
 )
