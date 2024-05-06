@@ -22,7 +22,12 @@ const getAllComments = async function(req, res) {
         if (!forum) {
             return res.status(500).send("Forum not found")
         }
-        const comments = await Comment.findAll({where: {forum_id: forum.id}})
+        const comments = await Comment.findAll({where: {forum_id: forum.id}, 
+        include: [{
+            model: User,
+            as: "user",
+            attributes: ["username", "id"]
+        }]})
         if (comments.length === 0) {
             return res.status(500).send("This forum has no comments yet")
         }

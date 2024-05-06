@@ -54,59 +54,42 @@ const getOneProfile = async (req, res) => {
 }
 
 const changeProfile = async (req, res) => {
-
-  if (res.locals.user.role === "admin" || String(res.locals.user.id ) === req.params.userId) {
+  if (res.locals.user.role === 'admin' || String(res.locals.user.id) === req.params.userId) {
     try {
-      const user = await User.findByPk(req.params.userId, {
+
+      if (req.body.description) {
+        const description = await Description.findOne({where: {user_id: req.params.userId}});
+        if (description) {
+          await description.update(req.body.description);
+          await description.save()
+        } else {
+          // Si no existe una descripción, puedes optar por crear una nueva aquí
+          await user.createDescription({
+            ...req.body.description,
+            user_id: req.params.userId
+          });
+        }
+      }
+        const user = await User.findByPk(req.params.userId, {
           attributes: {
             exclude: ['password']
           },
-          include: {
-            model: Description,
-          }  
+          include: Description
         })
-    
+      
         if (!user) {
           return res.status(404).send('User not found')
         }
         
-        //user.update(req.body)
-
-        if (req.body.Description) {
-          console.log(user)
-          let descriptionData = {...user?.Description}
-          console.log('descriptionData ', descriptionData)
-          
-           if ( req.body.Description?.neurodivergent_trait) {
-          descriptionData.neurodivergent_trait = req.body.Description.neurodivergent_trait;
-          }
-          if ( req.body.Description?.about_me ) {
-            descriptionData.about_me = req.body.Description.about_me;
-          }
-
-        // Actualizar la descripción si hay datos para actualizar
-        if (user?.Description && Object.keys(descriptionData).length > 0) {
-          await user?.Description.update(descriptionData)
-          
-
-          }else {
-            console.log(descriptionData, user)
-            await user.createDescription({
-               ...descriptionData,
-               //userId: user.id
-            })
-          }
-        } 
-        
-        await user.save()
+        user.update(req.body)
+        user.save()
         return res.status(200).json(user)
     } catch (error) {
-      console.log('Error getting your profile' + error.message)
-      return res.status(500).send('Error getting your profile' + error.message)
+    console.log('Error getting your profile', error)
+    res.status(400).send('Error getting your profile', error)
     }
-  }
-  else {
-    res.status(500).send("Unauthorized")
+  } else  {
+    res.status(500).send('Unauthorized!!')
   }
 }
 

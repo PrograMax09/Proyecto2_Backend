@@ -3,6 +3,7 @@ const { checkDB, syncModels } = require("./db/index.js")
 const express = require('express')
 const morgan = require("morgan")
 const addRelations = require('./db/relations.js')
+const cors = require('cors')
 
 const router = require('./api/routes/index.js')
 
@@ -19,6 +20,7 @@ async function dbConnect() {
 const app = express()
 const port = process.env.PORT
 
+app.use(cors())
 app.use(express.json())
 app.use(morgan("dev"));
 
