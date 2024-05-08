@@ -4,7 +4,8 @@ const User = require('../models/user.model.js')
 
 const createComment = async function(req, res) { 
     try {
-        const forum = await Forum.findOne({where: {topic: req.body.topic}})
+        const forum = await Forum.findByPk(req.params.forum_id)
+
         if (!forum) {
             return res.status(500).send("Forum not found")
         }
@@ -18,7 +19,7 @@ const createComment = async function(req, res) {
 
 const getAllComments = async function(req, res) { 
     try {
-        const forum = await Forum.findOne({where: {topic: req.params.topic}})
+        const forum = await Forum.findByPk(req.params.forum_id)
         if (!forum) {
             return res.status(500).send("Forum not found")
         }
