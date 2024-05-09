@@ -50,7 +50,7 @@ const login = async (req, res) => {
     if (checkPass) {
       const payload = { email: req.body.email }
       const token = jwt.sign(payload, process.env.MY_SECRET, { expiresIn: '1h' })
-      return res.status(200).json({ token })  // === { token: token }
+      return res.status(200).json({ token, id: user.id })  // === { token: token }
     } else {
       return res.status(404).send('Email or password wrong')
     }

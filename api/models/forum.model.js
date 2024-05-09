@@ -11,7 +11,7 @@ const Forum = sequelize.define("Forum", {
         type: DataTypes.STRING,
     }, 
     image: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING,
     }
 },
 {timestamps: true}

@@ -9,7 +9,7 @@ const createComment = async function(req, res) {
         if (!forum) {
             return res.status(500).send("Forum not found")
         }
-        const comment = await Comment.create({content: req.body.content, forum_id: forum.id, user_id: res.locals.user.id})
+        const comment = await Comment.create({content: req.body.content, forum_id: forum.id, user_id: req.body.userID})
         res.status(200).send(comment)
     } catch (error) {
         console.log('Error creating a comment', error)

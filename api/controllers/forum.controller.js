@@ -23,7 +23,7 @@ const getAllForums = async function(req, res) {
     try {
         const allForums = await Forum.findAll()
         console.log(allForums)
-        if (!allForums) {
+        if (!allForums.length) {
             return res.status(400).send('Error getting all forums')
         }
         res.status(200).send(allForums)

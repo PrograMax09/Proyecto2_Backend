@@ -17,10 +17,15 @@ async function dbConnect() {
     }
 }
 
+const corsOptions = {
+    origin: '*', // Reemplaza con el origen del frontend
+    methods: 'GET,POST,PATCH,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+};
 const app = express()
 const port = process.env.PORT
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(morgan("dev"));
 
