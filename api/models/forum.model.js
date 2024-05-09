@@ -8,7 +8,10 @@ const Forum = sequelize.define("Forum", {
         unique: true,
     },
     description: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+    }, 
+    image: {
+        type: DataTypes.BLOB,
     }
 },
 {timestamps: true}
